@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+message SensorData {
+    uint64  device_id = 1;
+    uint64  event_id = 2;
+    float   humidity = 3;
+    float   temperature = 4;
+}
