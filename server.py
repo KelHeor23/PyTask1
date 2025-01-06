@@ -1,6 +1,19 @@
 import socket
 
 import globals
+import msg_pb2
+
+# Функция чтения данных, заодно выводим в терминал
+def readData(protobufData):
+    msg = msg_pb2.SensorData()
+    msg.ParseFromString(protobufData)
+
+    print(f"ID устройства {msg.device_id}:")
+    print(f"ID сообщения: {msg.event_id}")
+    print(f"Влажность: {msg.humidity:.2f}%")
+    print(f"Температура: {msg.temperature:.2f}°C")
+    print()
+    return msg
 
 def server():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -18,8 +31,8 @@ def server():
                 while True:
                     data = conn.recv(1024)  # Принимаем входящее сообщение. Размер буффера 1 КБ
                     if not data:
-                        break;
-                    print(data)                    
+                        break
+                    readData(data)                
             except Exception as e:
                 print(f"Что-то пошло не так: {e}")
         

@@ -13,8 +13,8 @@ def createMsg():
 
     msg.device_id   = 0
     msg.event_id    = countMsg
-    msg.humidity    = random.uniform(30.0, 50.0)
-    msg.temperature = random.uniform(10.0, 30.0)
+    msg.humidity    = random.uniform(10.0, 30.0)
+    msg.temperature = random.uniform(60.0, 80.0)
 
     countMsg += 1
     return msg
@@ -25,6 +25,7 @@ def client():
             print("Подключение к серверу...")
             with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as soc:
                 soc.connect(globals.SERVER_ADDRESS)
+                print("Подключение успешно!")
                 while True:
                     soc.send(createMsg().SerializeToString())
                     time.sleep(1)  # Ждем 1 секунду
